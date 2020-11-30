@@ -1,2 +1,8 @@
-# java-soap
-SOAP Web Service
+# SOAP Web Service
+
+**Web Service**: is a software system designed to support interoperable machine-to-machine interaction over a network. (W3C)
+
+![](https://github.com/shamy1st/java-soap/blob/main/images/web-service.png)
+![](https://github.com/shamy1st/java-soap/blob/main/images/service-definition.png)
+
+
