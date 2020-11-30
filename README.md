@@ -21,4 +21,15 @@
 
 ![](https://github.com/shamy1st/java-soap/blob/main/images/mq-example.png)
 
+### SOAP
+
+![](https://github.com/shamy1st/java-soap/blob/main/images/soap-envelope.png)
+![](https://github.com/shamy1st/java-soap/blob/main/images/soap-response-example.png)
+![](https://github.com/shamy1st/java-soap/blob/main/images/soap-wsdl.png)
+![](https://github.com/shamy1st/java-soap/blob/main/images/soap-wsdl-definition.png)
+
+### REST API
+
+
+
 
