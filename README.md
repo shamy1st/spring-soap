@@ -42,9 +42,29 @@
 
 ### SOAP
 
+1. **Request**
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <GetCourseRequest xmlns="http://www.shamy1st.com/courses">
+            <id>123</id>
+        </GetCourseRequest>
+
+2. **Response**
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <GetCourseResponse xmlns="http://www.shamy1st.com/courses">
+            <CourseDetails>
+                <id>123</id>
+                <name>Spring Boot with SOAP</name>
+                <description>Basics of SOAP web service.</description>
+            </CourseDetails>
+        </GetCourseResponse>
+
+3. **XSD Validation for Request**
 
 
 
+4. **XSD Validation for Response**
 
 
 
