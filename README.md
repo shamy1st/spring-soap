@@ -21,7 +21,7 @@
 
 ![](https://github.com/shamy1st/java-soap/blob/main/images/mq-example.png)
 
-### SOAP
+### SOAP Introduction
 
 **SOAP**: Simple Object Access Protocol
 
@@ -30,7 +30,7 @@
 ![](https://github.com/shamy1st/java-soap/blob/main/images/soap-wsdl.png)
 ![](https://github.com/shamy1st/java-soap/blob/main/images/soap-wsdl-definition.png)
 
-### REST API
+### REST API Introduction
 
 **REST**: REpresentational state transfer.
 
@@ -40,7 +40,7 @@
 
 ![](https://github.com/shamy1st/java-soap/blob/main/images/rest-http.png)
 
-### SOAP vs REST
+### SOAP
 
 
 
