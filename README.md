@@ -23,12 +23,30 @@
 
 ### SOAP
 
+**SOAP**: Simple Object Access Protocol
+
 ![](https://github.com/shamy1st/java-soap/blob/main/images/soap-envelope.png)
 ![](https://github.com/shamy1st/java-soap/blob/main/images/soap-response-example.png)
 ![](https://github.com/shamy1st/java-soap/blob/main/images/soap-wsdl.png)
 ![](https://github.com/shamy1st/java-soap/blob/main/images/soap-wsdl-definition.png)
 
 ### REST API
+
+**REST**: REpresentational state transfer.
+
+* **Data Exchange**: JSON is popular (but no restriction).
+* **Transport**: only HTTP.
+* **Service Definition**: WADL, Swagger (no standard).
+
+![](https://github.com/shamy1st/java-soap/blob/main/images/rest-http.png)
+
+### SOAP vs REST
+
+
+
+
+
+
 
 
 
