@@ -42,17 +42,21 @@
 
 ### SOAP
 
-1. **Request**
+1. **Request**: request.xml
 
         <?xml version="1.0" encoding="UTF-8" ?>
-        <GetCourseRequest xmlns="http://www.shamy1st.com/courses">
+        <GetCourseRequest xmlns="http://www.shamy1st.com/courses"
+                        xsi:schemaLocation="http://www.shamy1st.com/courses request-validation.xsd"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <id>123</id>
         </GetCourseRequest>
 
-2. **Response**
+2. **Response**: response.xml
 
         <?xml version="1.0" encoding="UTF-8" ?>
-        <GetCourseResponse xmlns="http://www.shamy1st.com/courses">
+        <GetCourseResponse xmlns="http://www.shamy1st.com/courses"
+                        xsi:schemaLocation="http://www.shamy1st.com/courses validation.xsd"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <CourseDetails>
                 <id>123</id>
                 <name>Spring Boot with SOAP</name>
@@ -60,14 +64,38 @@
             </CourseDetails>
         </GetCourseResponse>
 
-3. **XSD Validation for Request**
+3. **XSD Validation**: validation.xsd
 
+        <?xml version="1.0"?>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema"
+                targetNamespace="http://www.shamy1st.com/courses"
+                xmlns:tns="http://www.shamy1st.com/courses"
+                elementFormDefault="qualified">
 
+            <element name="GetCourseRequest">
+                <complexType>
+                    <sequence>
+                        <element name="id" type="integer"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="GetCourseResponse">
+                <complexType>
+                    <sequence>
+                        <element name="CourseDetails">
+                            <complexType>
+                                <sequence>
+                                    <element name="id" type="integer"/>
+                                    <element name="name" type="string"/>
+                                    <element name="description" type="string"/>
+                                </sequence>
+                            </complexType>
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
 
-4. **XSD Validation for Response**
-
-
-
-
+4. ****
 
 
