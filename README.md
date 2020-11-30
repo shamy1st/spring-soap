@@ -10,4 +10,15 @@
 
 ![](https://github.com/shamy1st/java-soap/blob/main/images/service-definition.png)
 
-### 
+### Terminology
+
+* Request and Response
+* Message Exchange Format (XML, JSON)
+* Service Provider or Server
+* Service Consumer or Client
+* Service Definition
+* Transport (HTTP, MQ)
+
+![](https://github.com/shamy1st/java-soap/blob/main/images/mq-example.png)
+
+
