@@ -46,7 +46,7 @@
 
         <?xml version="1.0" encoding="UTF-8" ?>
         <GetCourseRequest xmlns="http://www.shamy1st.com/courses"
-                        xsi:schemaLocation="http://www.shamy1st.com/courses request-validation.xsd"
+                        xsi:schemaLocation="http://www.shamy1st.com/courses course.xsd"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <id>123</id>
         </GetCourseRequest>
@@ -55,7 +55,7 @@
 
         <?xml version="1.0" encoding="UTF-8" ?>
         <GetCourseResponse xmlns="http://www.shamy1st.com/courses"
-                        xsi:schemaLocation="http://www.shamy1st.com/courses validation.xsd"
+                        xsi:schemaLocation="http://www.shamy1st.com/courses course.xsd"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <CourseDetails>
                 <id>123</id>
@@ -64,7 +64,7 @@
             </CourseDetails>
         </GetCourseResponse>
 
-3. **XSD Validation**: validation.xsd
+3. **XSD Validation**: course.xsd
 http://edutechwiki.unige.ch/en/XML_Schema_tutorial_-_Basics
 
         <?xml version="1.0"?>
@@ -100,6 +100,48 @@ http://edutechwiki.unige.ch/en/XML_Schema_tutorial_-_Basics
             </xs:element>
         </xs:schema>
 
-4. ****
+4. **JAXB**: (Java Architecture for XML Binding)
+
+    4.1 copy "course.xsd" to resources dirctory into your project.
+    4.2 add jaxb2 plugin to pom.xml (only 1.5 works for me)
+    https://www.mojohaus.org/jaxb2-maven-plugin/Documentation/v2.4/example_xjc_basic.html
+    
+            <plugins>
+                ...
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>jaxb2-maven-plugin</artifactId>
+                    <version>1.5</version>
+                    <executions>
+                        <execution>
+                            <id>xjc</id>
+                            <goals>
+                                <goal>xjc</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
+                        <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+                        <clearOutputDir>false</clearOutputDir>
+                    </configuration>
+                </plugin>
+            </plugins>
+
+    4.3 maven update & execute "./mvnw clean install"
+    4.4 then java files will be generated under "com.shamy1st.courses"
+
+5. **Endpoint**
+
+
+
+
+
+
+
+
+
+
+
 
 
