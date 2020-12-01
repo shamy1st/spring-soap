@@ -469,7 +469,151 @@ http://localhost:8080/ws/courses.wsdl
 
 ![](https://github.com/shamy1st/java-soap/blob/main/images/wsdl-example.png)
 
-### 13. 
+### 13. Delete Course
+
+1. **Modify XSD**
+
+        <?xml version="1.0"?>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                targetNamespace="http://shamy1st.com/courses"
+                xmlns:tns="http://shamy1st.com/courses"
+                elementFormDefault="qualified">
+
+            <!-- request course validation -->
+            <xs:element name="GetCourseRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <!-- response course validation -->
+            <xs:element name="GetCourseResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Course" type="tns:Course" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <!-- request courses validation -->
+            <xs:element name="GetCoursesRequest">
+                <xs:complexType></xs:complexType>
+            </xs:element>
+
+            <!-- response courses validation -->
+            <xs:element name="GetCoursesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Course" type="tns:Course" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <!-- request delete course validation -->
+            <xs:element name="DeleteCourseRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <!-- response delete course validation -->
+            <xs:element name="DeleteCourseResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="status" type="xs:boolean" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:complexType name="Course">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:int"/>
+                    <xs:element name="name" type="xs:string"/>
+                    <xs:element name="description" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+
+2. **Modify CourseService**
+
+        @Service
+        public class CourseService {
+
+            @Autowired
+            private CourseRepository repository;
+
+            public Optional<Course> findById(Integer id) {
+                return repository.findById(id);
+            }
+
+            public List<Course> findAll() {
+                return repository.findAll();
+            }
+
+            public boolean deleteById(Integer id) {
+                Optional<Course> optional = findById(id);
+                if(optional.isPresent()) {
+                    repository.deleteById(id);
+                    return true;
+                }
+                return false;
+            }
+        }
+
+3. **Modify Endpoint**
+
+        @Endpoint
+        public class CourseEndpoint {
+
+            @Autowired
+            private CourseService service;
+
+            @PayloadRoot(namespace="http://shamy1st.com/courses", localPart="GetCourseRequest")
+            @ResponsePayload
+            public GetCourseResponse getCourse(@RequestPayload GetCourseRequest request) {
+                Optional<Course> optional = service.findById(request.getId());
+                GetCourseResponse response = new GetCourseResponse();
+                optional.ifPresent(course -> response.setCourse(mapCourse(course)));
+                return response;
+            }
+
+            private com.shamy1st.courses.Course mapCourse(Course course) {
+                com.shamy1st.courses.Course courseResponse = new com.shamy1st.courses.Course();
+                courseResponse.setId(course.getId());
+                courseResponse.setName(course.getName());
+                courseResponse.setDescription(course.getDescription());
+                return courseResponse;
+            }
+
+            @PayloadRoot(namespace="http://shamy1st.com/courses", localPart="GetCoursesRequest")
+            @ResponsePayload
+            public GetCoursesResponse getCourses(@RequestPayload GetCoursesRequest request) {
+                List<Course> courses = service.findAll();
+                return mapCourses(courses);
+            }
+
+            private GetCoursesResponse mapCourses(List<Course> courses) {
+                List<com.shamy1st.courses.Course> coursesResponse = new ArrayList<>();
+                courses.forEach(course -> coursesResponse.add(mapCourse(course)));
+                GetCoursesResponse response = new GetCoursesResponse();
+                response.setCourses(coursesResponse);
+                return response;
+            }
+
+            @PayloadRoot(namespace="http://shamy1st.com/courses", localPart="DeleteCourseRequest")
+            @ResponsePayload
+            public DeleteCourseResponse deleteCourse(@RequestPayload DeleteCourseRequest request) {
+                DeleteCourseResponse response = new DeleteCourseResponse();
+                response.setStatus(service.deleteById(request.getId()));
+                return response;
+            }
+        }
+
+### 14. 
 
 
 
