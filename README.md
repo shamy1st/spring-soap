@@ -45,8 +45,8 @@
 1. **Request**: request.xml
 
         <?xml version="1.0" encoding="UTF-8" ?>
-        <GetCourseRequest xmlns="http://www.shamy1st.com/courses"
-                        xsi:schemaLocation="http://www.shamy1st.com/courses course.xsd"
+        <GetCourseRequest xmlns="http://shamy1st.com/courses"
+                        xsi:schemaLocation="http://shamy1st.com/courses course.xsd"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <id>123</id>
         </GetCourseRequest>
@@ -54,8 +54,8 @@
 2. **Response**: response.xml
 
         <?xml version="1.0" encoding="UTF-8" ?>
-        <GetCourseResponse xmlns="http://www.shamy1st.com/courses"
-                        xsi:schemaLocation="http://www.shamy1st.com/courses course.xsd"
+        <GetCourseResponse xmlns="http://shamy1st.com/courses"
+                        xsi:schemaLocation="http://shamy1st.com/courses course.xsd"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <CourseDetails>
                 <id>123</id>
@@ -69,15 +69,15 @@ http://edutechwiki.unige.ch/en/XML_Schema_tutorial_-_Basics
 
         <?xml version="1.0"?>
         <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                targetNamespace="http://www.shamy1st.com/courses"
-                xmlns:tns="http://www.shamy1st.com/courses"
+                targetNamespace="http://shamy1st.com/courses"
+                xmlns:tns="http://shamy1st.com/courses"
                 elementFormDefault="qualified">
 
             <!-- request validation -->
             <xs:element name="GetCourseRequest">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="id" type="xs:integer"/>
+                        <xs:element name="id" type="xs:int"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -89,7 +89,7 @@ http://edutechwiki.unige.ch/en/XML_Schema_tutorial_-_Basics
                         <xs:element name="CourseDetails">
                             <xs:complexType>
                                 <xs:sequence>
-                                    <xs:element name="id" type="xs:integer"/>
+                                    <xs:element name="id" type="xs:int"/>
                                     <xs:element name="name" type="xs:string"/>
                                     <xs:element name="description" type="xs:string"/>
                                 </xs:sequence>
