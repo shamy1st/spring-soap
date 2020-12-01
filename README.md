@@ -465,6 +465,8 @@ https://www.mojohaus.org/jaxb2-maven-plugin/Documentation/v2.4/example_xjc_basic
 
 WSDL contains all information that client need about the web service.
 
+http://localhost:8080/ws/courses.wsdl
+
 ![](https://github.com/shamy1st/java-soap/blob/main/images/wsdl-example.png)
 
 ### 13. 
