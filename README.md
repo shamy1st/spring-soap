@@ -102,9 +102,11 @@ http://edutechwiki.unige.ch/en/XML_Schema_tutorial_-_Basics
 
 ### 4. JAXB: (Java Architecture for XML Binding)
 
+**JAXB**: Java Architecture for XML Binding
+
 4.1 copy "course.xsd" to resources dirctory into your project.
 
-4.2 add jaxb2 plugin to pom.xml (only 1.5 works for me)
+4.2 add jaxb2 plugin to pom.xml (only version 1.5 works for me)
 
 https://www.mojohaus.org/jaxb2-maven-plugin/Documentation/v2.4/example_xjc_basic.html
 
@@ -137,12 +139,109 @@ https://www.mojohaus.org/jaxb2-maven-plugin/Documentation/v2.4/example_xjc_basic
 
 ### 5. Endpoint:
 
+        @Endpoint
+        public class CourseEndpoint {
 
+            @PayloadRoot(namespace="http://shamy1st.com/courses", localPart="GetCourseRequest")
+            @ResponsePayload
+            public GetCourseResponse processRequest(@RequestPayload GetCourseRequest request) {
+                GetCourseResponse response = new GetCourseResponse();
+                Course course = new Course();
+                course.setId(request.getId());
+                course.setName("Spring Boot with SOAP");
+                course.setDescription("Basics of SOAP web service.");
+                response.setCourse(course);
+                return response;
+            }
+        }
 
+### 6. Web Service Configuration & Generate WSDL
 
+        @EnableWs
+        @Configuration
+        public class WebServiceConfig {
 
+            @Bean
+            public ServletRegistrationBean messageDispatcherServlet(ApplicationContext context) {
+                MessageDispatcherServlet message = new MessageDispatcherServlet();
+                message.setApplicationContext(context);
+                message.setTransformWsdlLocations(true);
+                return new ServletRegistrationBean(message, "/ws/*");
+            }
 
+            @Bean(name="courses")
+            public DefaultWsdl11Definition wsdlDefinition(XsdSchema coursesSchema) {
+                DefaultWsdl11Definition wsdl = new DefaultWsdl11Definition();
+                wsdl.setPortTypeName("CoursePort");
+                wsdl.setTargetNamespace("http://shamy1st.com/courses");
+                wsdl.setLocationUri("/ws");
+                wsdl.setSchema(coursesSchema);
+                return wsdl;
+            }
 
+            @Bean
+            public XsdSchema courseSchema() {
+                return new SimpleXsdSchema(new ClassPathResource("course.xsd"));
+            }
+        }
+
+### 7. pom.xml dependencies
+
+* **Spring Web Services**
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+
+* **Spring Data JPA**
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+* **wsdl4j**
+
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+        </dependency>
+
+### 8. Run Application
+
+### 9. Invoke Web Service using Wizdler
+
+1. add wizdler plugin for chrome or firefox.
+
+2. open url "http://localhost:8080/ws/courses.wsdl" in the browser.
+
+3. click "GetCourse" from wizdler icon in the browser.
+
+4. it will open a new tab with xml request -> then write any "id" and click Go.
+
+        <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+            <Body>
+                <GetCourseRequest xmlns="http://shamy1st.com/courses">
+                    <id>1003</id>
+                </GetCourseRequest>
+            </Body>
+        </Envelope>
+
+5. Now you have a xml response in the browser like that:
+
+        <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+            <SOAP-ENV:Header/>
+            <SOAP-ENV:Body>
+                <ns2:GetCourseResponse xmlns:ns2="http://shamy1st.com/courses">
+                    <ns2:Course>
+                        <ns2:id>1003</ns2:id>
+                        <ns2:name>Spring Boot with SOAP</ns2:name>
+                        <ns2:description>Basics of SOAP web service.</ns2:description>
+                    </ns2:Course>
+                </ns2:GetCourseResponse>
+            </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
 
 
 
