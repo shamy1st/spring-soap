@@ -243,7 +243,7 @@ https://www.mojohaus.org/jaxb2-maven-plugin/Documentation/v2.4/example_xjc_basic
             </SOAP-ENV:Body>
         </SOAP-ENV:Envelope>
 
-### Fetch From DB (H2)
+### 10. Fetch From DB (H2)
 
 1. Modify Endpoint
 
@@ -350,8 +350,8 @@ https://www.mojohaus.org/jaxb2-maven-plugin/Documentation/v2.4/example_xjc_basic
         INSERT INTO course (id, name, description) VALUES (10002, 'course2', 'description2');
         INSERT INTO course (id, name, description) VALUES (10003, 'course3', 'description3');
 
-5. test again
+5. test again like **step-9**
 
-
+### 11. 
 
 
