@@ -57,11 +57,11 @@
         <GetCourseResponse xmlns="http://shamy1st.com/courses"
                         xsi:schemaLocation="http://shamy1st.com/courses course.xsd"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <CourseDetails>
+            <Course>
                 <id>123</id>
                 <name>Spring Boot with SOAP</name>
                 <description>Basics of SOAP web service.</description>
-            </CourseDetails>
+            </Course>
         </GetCourseResponse>
 
 3. **XSD Validation**: course.xsd
@@ -86,18 +86,18 @@ http://edutechwiki.unige.ch/en/XML_Schema_tutorial_-_Basics
             <xs:element name="GetCourseResponse">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="CourseDetails">
-                            <xs:complexType>
-                                <xs:sequence>
-                                    <xs:element name="id" type="xs:int"/>
-                                    <xs:element name="name" type="xs:string"/>
-                                    <xs:element name="description" type="xs:string"/>
-                                </xs:sequence>
-                            </xs:complexType>
-                        </xs:element>
+                        <xs:element name="Course" type="tns:Course" />
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+
+            <xs:complexType name="Course">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:int"/>
+                    <xs:element name="name" type="xs:string"/>
+                    <xs:element name="description" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
         </xs:schema>
 
 4. **JAXB**: (Java Architecture for XML Binding)
