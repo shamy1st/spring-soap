@@ -352,6 +352,122 @@ https://www.mojohaus.org/jaxb2-maven-plugin/Documentation/v2.4/example_xjc_basic
 
 5. test again like **step-9**
 
-### 11. 
+### 11. Get All Courses
+
+1. **Modify XSD**
+
+        <?xml version="1.0"?>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                targetNamespace="http://shamy1st.com/courses"
+                xmlns:tns="http://shamy1st.com/courses"
+                elementFormDefault="qualified">
+
+            <!-- request validation -->
+            <xs:element name="GetCourseRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <!-- response validation -->
+            <xs:element name="GetCourseResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Course" type="tns:Course" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <!-- request validation -->
+            <xs:element name="GetCoursesRequest">
+                <xs:complexType></xs:complexType>
+            </xs:element>
+
+            <!-- response validation -->
+            <xs:element name="GetCoursesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Course" type="tns:Course" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:complexType name="Course">
+                <xs:sequence>
+                    <xs:element name="id" type="xs:int"/>
+                    <xs:element name="name" type="xs:string"/>
+                    <xs:element name="description" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+
+2. **Modify CourseService**
+
+        @Service
+        public class CourseService {
+
+            @Autowired
+            private CourseRepository repository;
+
+            public Optional<Course> findById(Integer id) {
+                return repository.findById(id);
+            }
+
+            public List<Course> findAll() {
+                return repository.findAll();
+            }
+        }
+
+3. **Modify Endpoint**
+
+        @Endpoint
+        public class CourseEndpoint {
+
+            @Autowired
+            private CourseService service;
+
+            @PayloadRoot(namespace="http://shamy1st.com/courses", localPart="GetCourseRequest")
+            @ResponsePayload
+            public GetCourseResponse getCourse(@RequestPayload GetCourseRequest request) {
+                Optional<Course> optional = service.findById(request.getId());
+                GetCourseResponse response = new GetCourseResponse();
+                optional.ifPresent(course -> response.setCourse(mapCourse(optional.get())));
+                return response;
+            }
+
+            private com.shamy1st.courses.Course mapCourse(Course course) {
+                com.shamy1st.courses.Course courseResponse = new com.shamy1st.courses.Course();
+                courseResponse.setId(course.getId());
+                courseResponse.setName(course.getName());
+                courseResponse.setDescription(course.getDescription());
+                return courseResponse;
+            }
+
+            @PayloadRoot(namespace="http://shamy1st.com/courses", localPart="GetCoursesRequest")
+            @ResponsePayload
+            public GetCoursesResponse getCourses(@RequestPayload GetCoursesRequest request) {
+                List<Course> courses = service.findAll();
+                return mapCourses(courses);
+            }
+
+            private GetCoursesResponse mapCourses(List<Course> courses) {
+                List<com.shamy1st.courses.Course> coursesResponse = new ArrayList<>();
+                courses.forEach(course -> coursesResponse.add(mapCourse(course)));
+                GetCoursesResponse response = new GetCoursesResponse();
+                response.setCourses(coursesResponse);
+                return response;
+            }
+        }
+
+### 12. WSDL
+
+WSDL contains all information that client need about the web service.
+
+![](https://github.com/shamy1st/java-soap/blob/main/images/wsdl-example.png)
+
+### 13. 
+
 
 
