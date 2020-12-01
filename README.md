@@ -243,7 +243,114 @@ https://www.mojohaus.org/jaxb2-maven-plugin/Documentation/v2.4/example_xjc_basic
             </SOAP-ENV:Body>
         </SOAP-ENV:Envelope>
 
+### Fetch From DB (H2)
 
+1. Modify Endpoint
+
+        @Endpoint
+        public class CourseEndpoint {
+
+            @Autowired
+            private CourseService service;
+
+            @PayloadRoot(namespace="http://shamy1st.com/courses", localPart="GetCourseRequest")
+            @ResponsePayload
+            public GetCourseResponse processRequest(@RequestPayload GetCourseRequest request) {
+                GetCourseResponse response = new GetCourseResponse();
+                Optional<Course> optCourse = service.findById(request.getId());
+                if(optCourse.isPresent()) {
+                    com.shamy1st.courses.Course course = new com.shamy1st.courses.Course();
+                    course.setId(optCourse.get().getId());
+                    course.setName(optCourse.get().getName());
+                    course.setDescription(optCourse.get().getDescription());
+                    response.setCourse(course);
+                }
+                return response;
+            }
+        }
+
+2. Entity, Repository, Service
+
+        @Service
+        public class CourseService {
+
+            @Autowired
+            private CourseRepository repository;
+
+            public Optional<Course> findById(Integer id) {
+                return repository.findById(id);
+            }
+        }
+
+        public interface CourseRepository extends JpaRepository<Course, Integer> {
+
+        }
+
+        @Entity
+        public class Course {
+
+            @Id
+            private int id;
+            private String name;
+            private String description;
+
+            public Course() {
+
+            }
+
+            public Course(int id, String name, String description) {
+                this.id = id;
+                this.name = name;
+                this.description = description;
+            }
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getDescription() {
+                return description;
+            }
+
+            public void setDescription(String description) {
+                this.description = description;
+            }
+
+            @Override
+            public String toString() {
+                return "Course{ id:" + id + ", name:'" + name + "', description:'" + description + "'}";
+            }
+        }
+
+3. application.properties (H2)
+
+        spring.datasource.url=jdbc:h2:mem:testdb
+        spring.datasource.driverClassName=org.h2.Driver
+        spring.datasource.username=sa
+        spring.datasource.password=password
+        spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+        spring.jpa.show-sql=true
+        spring.h2.console.enable=true
+
+4. data.sql (H2)
+
+        INSERT INTO course (id, name, description) VALUES (10001, 'course1', 'description1');
+        INSERT INTO course (id, name, description) VALUES (10002, 'course2', 'description2');
+        INSERT INTO course (id, name, description) VALUES (10003, 'course3', 'description3');
+
+5. test again
 
 
 
