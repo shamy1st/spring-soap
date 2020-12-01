@@ -65,36 +65,40 @@
         </GetCourseResponse>
 
 3. **XSD Validation**: validation.xsd
+http://edutechwiki.unige.ch/en/XML_Schema_tutorial_-_Basics
 
         <?xml version="1.0"?>
-        <schema xmlns="http://www.w3.org/2001/XMLSchema"
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 targetNamespace="http://www.shamy1st.com/courses"
                 xmlns:tns="http://www.shamy1st.com/courses"
                 elementFormDefault="qualified">
 
-            <element name="GetCourseRequest">
-                <complexType>
-                    <sequence>
-                        <element name="id" type="integer"/>
-                    </sequence>
-                </complexType>
-            </element>
-            <element name="GetCourseResponse">
-                <complexType>
-                    <sequence>
-                        <element name="CourseDetails">
-                            <complexType>
-                                <sequence>
-                                    <element name="id" type="integer"/>
-                                    <element name="name" type="string"/>
-                                    <element name="description" type="string"/>
-                                </sequence>
-                            </complexType>
-                        </element>
-                    </sequence>
-                </complexType>
-            </element>
-        </schema>
+            <!-- request validation -->
+            <xs:element name="GetCourseRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="id" type="xs:integer"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <!-- response validation -->
+            <xs:element name="GetCourseResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="CourseDetails">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="id" type="xs:integer"/>
+                                    <xs:element name="name" type="xs:string"/>
+                                    <xs:element name="description" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
 
 4. ****
 
