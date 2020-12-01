@@ -102,9 +102,10 @@ http://edutechwiki.unige.ch/en/XML_Schema_tutorial_-_Basics
 
 ### 4. JAXB: (Java Architecture for XML Binding)
 
-1. copy "course.xsd" to resources dirctory into your project.
+4.1 copy "course.xsd" to resources dirctory into your project.
 
-2. add jaxb2 plugin to pom.xml (only 1.5 works for me)
+4.2 add jaxb2 plugin to pom.xml (only 1.5 works for me)
+
 https://www.mojohaus.org/jaxb2-maven-plugin/Documentation/v2.4/example_xjc_basic.html
 
     <plugins>
@@ -129,9 +130,10 @@ https://www.mojohaus.org/jaxb2-maven-plugin/Documentation/v2.4/example_xjc_basic
         </plugin>
     </plugins>
 
-3. maven update & execute "./mvnw clean install"
+4.3 maven update & execute "./mvnw clean install"
 
-4. then java files will be generated under "com.shamy1st.courses"
+4.4 then java files will be generated under "com.shamy1st.courses"
+
 
 ### 5. Endpoint:
 
