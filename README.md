@@ -1,16 +1,16 @@
 # SOAP Web Service
 
-### Web Service
+## Web Service
 
 **Web Service**: is a software system designed to support interoperable machine-to-machine interaction over a network. (W3C)
 
 ![](https://github.com/shamy1st/java-soap/blob/main/images/web-service.png)
 
-### Service Definition
+## Service Definition
 
 ![](https://github.com/shamy1st/java-soap/blob/main/images/service-definition.png)
 
-### Terminology
+## Terminology
 
 * Request and Response
 * Message Exchange Format (XML, JSON)
@@ -21,7 +21,7 @@
 
 ![](https://github.com/shamy1st/java-soap/blob/main/images/mq-example.png)
 
-### SOAP Introduction
+## SOAP Introduction
 
 **SOAP**: Simple Object Access Protocol
 
@@ -30,7 +30,7 @@
 ![](https://github.com/shamy1st/java-soap/blob/main/images/soap-wsdl.png)
 ![](https://github.com/shamy1st/java-soap/blob/main/images/soap-wsdl-definition.png)
 
-### REST API Introduction
+## REST API Introduction
 
 **REST**: REpresentational state transfer.
 
@@ -40,9 +40,9 @@
 
 ![](https://github.com/shamy1st/java-soap/blob/main/images/rest-http.png)
 
-### SOAP
+## SOAP
 
-1. **Request**: request.xml
+### 1. Request: request.xml
 
         <?xml version="1.0" encoding="UTF-8" ?>
         <GetCourseRequest xmlns="http://shamy1st.com/courses"
@@ -51,7 +51,7 @@
             <id>123</id>
         </GetCourseRequest>
 
-2. **Response**: response.xml
+### 2. Response: response.xml
 
         <?xml version="1.0" encoding="UTF-8" ?>
         <GetCourseResponse xmlns="http://shamy1st.com/courses"
@@ -64,7 +64,7 @@
             </Course>
         </GetCourseResponse>
 
-3. **XSD Validation**: course.xsd
+### 3. XSD Validation: course.xsd
 http://edutechwiki.unige.ch/en/XML_Schema_tutorial_-_Basics
 
         <?xml version="1.0"?>
@@ -100,40 +100,40 @@ http://edutechwiki.unige.ch/en/XML_Schema_tutorial_-_Basics
             </xs:complexType>
         </xs:schema>
 
-4. **JAXB**: (Java Architecture for XML Binding)
+### 4. JAXB: (Java Architecture for XML Binding)
 
-    4.1 copy "course.xsd" to resources dirctory into your project.
-    
-    4.2 add jaxb2 plugin to pom.xml (only 1.5 works for me)
-    https://www.mojohaus.org/jaxb2-maven-plugin/Documentation/v2.4/example_xjc_basic.html
-    
-            <plugins>
-                ...
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>jaxb2-maven-plugin</artifactId>
-                    <version>1.5</version>
-                    <executions>
-                        <execution>
-                            <id>xjc</id>
-                            <goals>
-                                <goal>xjc</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
-                        <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
-                        <clearOutputDir>false</clearOutputDir>
-                    </configuration>
-                </plugin>
-            </plugins>
+4.1 copy "course.xsd" to resources dirctory into your project.
 
-    4.3 maven update & execute "./mvnw clean install"
-    
-    4.4 then java files will be generated under "com.shamy1st.courses"
+4.2 add jaxb2 plugin to pom.xml (only 1.5 works for me)
+https://www.mojohaus.org/jaxb2-maven-plugin/Documentation/v2.4/example_xjc_basic.html
 
-5. **Endpoint**
+    <plugins>
+        ...
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>jaxb2-maven-plugin</artifactId>
+            <version>1.5</version>
+            <executions>
+                <execution>
+                    <id>xjc</id>
+                    <goals>
+                        <goal>xjc</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
+                <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+                <clearOutputDir>false</clearOutputDir>
+            </configuration>
+        </plugin>
+    </plugins>
+
+4.3 maven update & execute "./mvnw clean install"
+
+4.4 then java files will be generated under "com.shamy1st.courses"
+
+### 5. Endpoint:
 
 
 
