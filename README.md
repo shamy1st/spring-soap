@@ -670,9 +670,81 @@ use Enum (Success or Fail) as a response instead of return (true/false).
             return response;
         }
 
-### 16. Security
+### 16. WS Security
+
+1. **pom.xml dependencies**
+
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-security</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.security</groupId>
+                    <artifactId>spring-security-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.wss</groupId>
+            <artifactId>xws-security</artifactId>
+            <version>3.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.xml.crypto</groupId>
+                    <artifactId>xmldsig</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+2. **Modify Web Service Configuration**
+
+        @EnableWs
+        @Configuration
+        public class WebServiceConfig extends WsConfigurerAdapter {
+
+            ...
+
+            @Override
+            public void addInterceptors(List<EndpointInterceptor> interceptors) {
+                interceptors.add(securityInterceptor());
+            }
+
+            @Bean
+            public XwsSecurityInterceptor securityInterceptor() {
+                XwsSecurityInterceptor interceptor = new XwsSecurityInterceptor();
+                interceptor.setCallbackHandler(callbackHandler());
+                interceptor.setPolicyConfiguration(new ClassPathResource("securityPolicy.xml"));
+                return interceptor;
+            }
+
+            private SimplePasswordValidationCallbackHandler callbackHandler() {
+                SimplePasswordValidationCallbackHandler handler = new SimplePasswordValidationCallbackHandler();
+                handler.setUsersMap(Collections.singletonMap("ahmed", "1234"));
+                return handler;
+            }
+        }
+
+3. **Add securityPolicy.xml**
+
+        <?xml version="1.0" encoding="UTF-8"?>
+        <xwss:SecurityConfiguration xmlns:xwss="http://java.sun.com/xml/ns/xwss/config">
+            <xwss:RequireUsernameToken passwordDigestRequired="false" nonceRequired="false" />
+        </xwss:SecurityConfiguration>
+
+4. **Test**
+
+http://localhost:8080/ws/courses.wsdl
+
+For example: choose GetCourse then click **arrow button** beside Go and choose **Authentication** then choose **WSSE PasswordText Authentication** then write the user "ahmed" and password "1234".
+
+Also check failure by wrong user or password or without authentication.
 
 
-
-
+## Ref
+* https://www.udemy.com/course/spring-web-services-tutorial/
 
