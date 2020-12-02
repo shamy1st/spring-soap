@@ -456,7 +456,7 @@ https://www.mojohaus.org/jaxb2-maven-plugin/Documentation/v2.4/example_xjc_basic
                 List<com.shamy1st.courses.Course> coursesResponse = new ArrayList<>();
                 courses.forEach(course -> coursesResponse.add(mapCourse(course)));
                 GetCoursesResponse response = new GetCoursesResponse();
-                response.setCourses(coursesResponse);
+                response.getCourse().addAll(coursesResponse);
                 return response;
             }
         }
@@ -600,7 +600,7 @@ http://localhost:8080/ws/courses.wsdl
                 List<com.shamy1st.courses.Course> coursesResponse = new ArrayList<>();
                 courses.forEach(course -> coursesResponse.add(mapCourse(course)));
                 GetCoursesResponse response = new GetCoursesResponse();
-                response.setCourses(coursesResponse);
+                response.getCourse().addAll(coursesResponse);
                 return response;
             }
 
@@ -613,7 +613,10 @@ http://localhost:8080/ws/courses.wsdl
             }
         }
 
-### 14. 
+### 14. Improve Delete Response (Enum)
+
+use Enum (Success or Fail) as a response instead of return (true/false).
+
 
 
 
