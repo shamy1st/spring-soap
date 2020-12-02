@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<GetCourseResponse xmlns="http://shamy1st.com/courses"
+                   xsi:schemaLocation="http://shamy1st.com/courses course.xsd"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Course>
+        <id>123</id>
+        <name>Spring Boot with SOAP</name>
+        <description>Basics of SOAP web service.</description>
+    </Course>
+</GetCourseResponse>

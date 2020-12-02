@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<GetCourseRequest xmlns="http://shamy1st.com/courses"
+                  xsi:schemaLocation="http://shamy1st.com/courses course.xsd"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <id>123</id>
+</GetCourseRequest>

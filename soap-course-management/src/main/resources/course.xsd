@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://shamy1st.com/courses"
+        xmlns:tns="http://shamy1st.com/courses"
+        elementFormDefault="qualified">
+
+    <!-- request course validation -->
+    <xs:element name="GetCourseRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- response course validation -->
+    <xs:element name="GetCourseResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Course" type="tns:Course" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- request courses validation -->
+    <xs:element name="GetCoursesRequest">
+        <xs:complexType></xs:complexType>
+    </xs:element>
+
+    <!-- response courses validation -->
+    <xs:element name="GetCoursesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Course" type="tns:Course" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- request delete course validation -->
+    <xs:element name="DeleteCourseRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- response delete course validation -->
+    <xs:element name="DeleteCourseResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="tns:Status" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:simpleType name="Status">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SUCCESS"/>
+            <xs:enumeration value="FAILURE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Course">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
