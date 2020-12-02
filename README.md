@@ -617,6 +617,62 @@ http://localhost:8080/ws/courses.wsdl
 
 use Enum (Success or Fail) as a response instead of return (true/false).
 
+1. **Modify XSD**
+
+        <!-- response delete course validation -->
+        <xs:element name="DeleteCourseResponse">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element name="status" type="tns:Status" />
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+
+        <xs:simpleType name="Status">
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="SUCCESS"/>
+                <xs:enumeration value="FAILURE"/>
+            </xs:restriction>
+        </xs:simpleType>
+
+2. **Modify CourseService**
+
+        public Status deleteById(Integer id) {
+            Optional<Course> optional = findById(id);
+            if(optional.isPresent()) {
+                repository.deleteById(id);
+                return Status.SUCCESS;
+            }
+            return Status.FAILURE;
+        }
+
+### 15. Exception Handling
+
+1. **Create Custom Exception**
+
+        @SoapFault(faultCode=FaultCode.CLIENT)
+        public class CourseNotFoundException extends RuntimeException {
+            public CourseNotFoundException(String message) {
+                super(message);
+            }
+        }
+
+2. **Modify Endpoint**
+
+        @PayloadRoot(namespace="http://shamy1st.com/courses", localPart="GetCourseRequest")
+        @ResponsePayload
+        public GetCourseResponse getCourse(@RequestPayload GetCourseRequest request) {
+            Optional<Course> course = service.findById(request.getId());
+            if(!course.isPresent())
+                throw new CourseNotFoundException("Invalid Course ID: " + request.getId());
+            GetCourseResponse response = new GetCourseResponse();
+            response.setCourse(mapCourse(course.get()));
+            return response;
+        }
+
+### 16. Security
+
+
 
 
 
