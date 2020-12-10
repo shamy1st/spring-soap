@@ -32,7 +32,7 @@
 
 ## REST API Introduction
 
-**REST**: REpresentational state transfer.
+**REST**: REpresentational State Transfer.
 
 * **Data Exchange**: JSON is popular (but no restriction).
 * **Transport**: only HTTP.
