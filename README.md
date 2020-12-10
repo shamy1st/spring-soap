@@ -2,7 +2,7 @@
 
 ## Web Service
 
-**Web Service**: is an interoperable machine-to-machine interaction over a network. (W3C)
+**Web Service**: is a machine-to-machine interaction over a network. (W3C)
 
 ![](https://github.com/shamy1st/java-soap/blob/main/images/web-service.png)
 
