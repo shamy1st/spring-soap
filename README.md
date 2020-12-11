@@ -14,8 +14,8 @@
 
 * Request and Response
 * Message Exchange Format (XML, JSON)
-* Service Provider or Server
-* Service Consumer or Client
+* Service Provider (Server)
+* Service Consumer (Client)
 * Service Definition
 * Transport (HTTP, MQ)
 
