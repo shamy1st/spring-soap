@@ -39,6 +39,7 @@
 * **Service Definition**: WADL, Swagger (no standard).
 
 ![](https://github.com/shamy1st/java-soap/blob/main/images/rest-http.png)
+![](https://github.com/shamy1st/java-soap/blob/main/images/http-response-status.png)
 
 ## SOAP
 
